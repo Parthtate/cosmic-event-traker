@@ -1,12 +1,71 @@
-# React + Vite
+#  Cosmic Event Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **React + Vite** SPA that visualizes upcoming **NASA Near-Earth Objects (NEOs)**.  
+Browse asteroid approaches, filter hazardous objects, and compare multiple NEOs side-by-side on an interactive chart.
 
-Currently, two official plugins are available:
+>  **Note on Backend**  
+> This version does **not** use a BaaS solution. Although the initial spec mentioned Supabase, I was unable to integrate it in time, so all data is fetched directly from NASA’s public API and held in front-end state only.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+##  Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Live NASA feed** – pulls the latest 7-day NEO data with your personal API key.  
+* **Incremental loading** – “Load More” button extends the date range in 7-day blocks.  
+* **Filter & Sort**  
+  * Show only *potentially hazardous* asteroids.  
+  * Sort by approach date, mean diameter, or miss-distance (asc/desc).  
+* **Date-range picker** – choose any custom start / end dates (YYYY-MM-DD).  
+* **Detailed modal** – click a card for full close-approach info, velocity, links to JPL.  
+* **Multi-select + comparison** – checkbox each card, then open a grouped-bar chart comparing:  
+  * Miss distance (km)  
+  * Relative velocity (km/h)  
+  * Mean diameter (km)  
+* **Responsive UI** – Tailwind CSS grid adapts from mobile to desktop.  
+* **No authentication required** – the app works immediately after cloning & adding your NASA key.
+
+---
+
+##  Tech Stack
+
+| Area               | Library / Tool |
+|--------------------|----------------|
+| Build setup        | Vite @React |
+| UI components      | React 18 + Functional Hooks |
+| Styling            | Tailwind CSS |
+| Charts             | `@nivo/bar` |
+| HTTP client        | Axios |
+| State management   | Local component/state hooks (no global store) |
+
+---
+
+##  Quick Start
+
+1. **git clone**  
+
+2. **Install deps**  
+
+3. **Environment**  
+Create `.env.local` in the project root:
+
+4. **Start dev server**  
+
+---
+
+##  Project Structure (trimmed)
+
+
+---
+
+##  Future Work
+
+* **Backend storage** – integrate Supabase (or another BaaS) to persist user selections, favourites, and comparison history.  
+* **Auth** – add password-less email / OAuth via Supabase Auth once backend is ready.  
+* **Unit tests** – React Testing Library + Jest for reducers, hooks, and key UI flows.  
+* **Accessibility** – ARIA roles & keyboard shortcuts for modal and filters.
+
+---
+
+## © License
+
+MIT — free to use, modify, and distribute.
