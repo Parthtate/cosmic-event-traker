@@ -17,25 +17,25 @@ const EventCard = ({ neo, onSelect, isSelected, onViewDetails }) => {
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-md p-6 border-2 transition-all duration-200 hover:shadow-lg ${
-        isSelected ? "border-blue-500 ring-2 ring-blue-200" : "border-gray-200"
+      className={`bg-white rounded-lg shadow-lg p-6 transition-all duration-300 ${
+        isSelected ? "ring-4 ring-gray-300 bg-gray-50" : ""
       }`}
       style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
     >
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center">
+      <div className="flex items-start justify-between mb-6">
+        <div className="flex items-start">
           <input
             type="checkbox"
             checked={isSelected}
             onChange={(e) => onSelect(e.target.checked)}
-            className="mr-3 h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+            className="mr-4 h-5 w-5 text-black rounded border-2 border-gray-900 focus:ring-2 focus:ring-gray-500 mt-1"
           />
           <div>
-            <h3 className="font-bold text-lg text-gray-900 leading-tight">
+            <h3 className="font-bold text-xl text-black leading-tight mb-2">
               {neo.name.replace(/[()]/g, "")}
             </h3>
             {neo.is_potentially_hazardous_asteroid && (
-              <span className="inline-block bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold mt-1">
+              <span className="inline-block bg-yellow-300 text-black px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
                 ⚠️ Potentially Hazardous
               </span>
             )}
@@ -43,28 +43,47 @@ const EventCard = ({ neo, onSelect, isSelected, onViewDetails }) => {
         </div>
       </div>
 
-      <div className="space-y-2 text-sm text-gray-600 mb-4">
-        <div className="flex justify-between">
-          <span>Diameter:</span>
-          <span className="font-medium">~{diameterAvg.toFixed(2)} km</span>
+      <div className="space-y-3 mb-6">
+        <div className="bg-gray-100 p-3 rounded-lg border border-gray-300">
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-gray-700">Diameter:</span>
+            <span className="font-bold text-black">
+              ~{diameterAvg.toFixed(2)} km
+            </span>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <span>Approach Date:</span>
-          <span className="font-medium">{neo.approach_date}</span>
+
+        <div className="bg-gray-100 p-3 rounded-lg border border-gray-300">
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-gray-700">
+              Approach Date:
+            </span>
+            <span className="font-bold text-black">{neo.approach_date}</span>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <span>Distance:</span>
-          <span className="font-medium">{distance.toLocaleString()} km</span>
+
+        <div className="bg-gray-100 p-3 rounded-lg border border-gray-300">
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-gray-700">Distance:</span>
+            <span className="font-bold text-black">
+              {distance.toLocaleString()} km
+            </span>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <span>Velocity:</span>
-          <span className="font-medium">{velocity.toLocaleString()} km/h</span>
+
+        <div className="bg-gray-100 p-3 rounded-lg border border-gray-300">
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-gray-700">Velocity:</span>
+            <span className="font-bold text-black">
+              {velocity.toLocaleString()} km/h
+            </span>
+          </div>
         </div>
       </div>
 
       <button
         onClick={() => onViewDetails(neo)}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200"
+        className="w-full bg-blue-700 hover:bg-blue-900 text-white py-3 px-2 font-bold uppercase tracking-wide transition-all duration-200 shadow-md hover:shadow-lg"
       >
         View Details
       </button>
