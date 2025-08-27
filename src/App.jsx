@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useState, useEffect, useCallback } from "react";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
@@ -5,45 +6,60 @@ import EventList from "./components/NEO/EventList";
 import CompareView from "./components/NEO/CompareView";
 import { useNASAApi } from "./hooks/useNASAApi";
 
+import { useAuth } from "./hooks/useAuth"; // Supabase auth
+import AuthComponent from "./components/Auth/AuthComponent";
+
 export default function App() {
-  /* ─── UI state ─── */
+  /* ────── Supabase session ────── */
+  const { session, loading: authLoading } = useAuth();
+
+  /* ────── UI state ────── */
   const [selectedNEOs, setSelectedNEOs] = useState([]);
   const [showComparison, setShowComparison] = useState(false);
 
-  /* ─── date range for the feed ─── */
+  /* ────── 7-day date window for the feed ────── */
   const [currentDateRange, setCurrentDateRange] = useState(() => {
-    const todayISO = new Date().toISOString().split("T")[0];
-    const in7ISO = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0];
-    return { start: todayISO, end: in7ISO };
+    const start = new Date();
+    const end = new Date();
+    end.setDate(end.getDate() + 6); // 7-day inclusive
+    return {
+      start: start.toISOString().split("T")[0],
+      end: end.toISOString().split("T")[0],
+    };
   });
 
-  /* ─── NASA data ─── */
+  /* ────── NASA data hook ────── */
   const { neoData, loading, error, fetchNEOFeed } = useNASAApi();
 
-  /* ─── initial + subsequent fetches ─── */
+  /* ────── fetch whenever the window changes ────── */
   useEffect(() => {
     fetchNEOFeed(currentDateRange.start, currentDateRange.end);
   }, [currentDateRange, fetchNEOFeed]);
 
-  /* ─── handlers ─── */
+  /* ────── advance window by 7 days ────── */
   const handleLoadMore = useCallback(() => {
-    const lastEnd = new Date(currentDateRange.end);
-    lastEnd.setDate(lastEnd.getDate() + 1);
-    const newEnd = new Date(lastEnd);
-    newEnd.setDate(newEnd.getDate() + 7);
+    const newStart = new Date(currentDateRange.end);
+    newStart.setDate(newStart.getDate() + 1);
+
+    const newEnd = new Date(newStart);
+    newEnd.setDate(newEnd.getDate() + 6);
+
+    const newStartISO = newStart.toISOString().split("T")[0];
     const newEndISO = newEnd.toISOString().split("T")[0];
 
-    setCurrentDateRange((prev) => ({ ...prev, end: newEndISO }));
-    fetchNEOFeed(currentDateRange.start, newEndISO);
-  }, [currentDateRange, fetchNEOFeed]);
+    setCurrentDateRange({ start: newStartISO, end: newEndISO });
+    fetchNEOFeed(newStartISO, newEndISO);
+  }, [currentDateRange.end, fetchNEOFeed]);
 
   const handleCompare = useCallback(() => {
     if (selectedNEOs.length > 1) setShowComparison(true);
   }, [selectedNEOs]);
 
-  /* ─── render ─── */
+  /* ────── Auth gates ────── */
+  if (authLoading) return null; // or <Spinner/>
+  if (!session) return <AuthComponent />; // show login
+
+  /* ────── Comparison page ────── */
   if (showComparison) {
     return (
       <CompareView
@@ -53,6 +69,7 @@ export default function App() {
     );
   }
 
+  /* ────── Main page ────── */
   return (
     <div
       className="min-h-screen bg-gray-50"

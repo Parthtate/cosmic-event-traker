@@ -1,3 +1,5 @@
+import { supabase } from "../../services/supabaseClient";
+
 const Header = ({ selectedCount, onCompare }) => (
   <header
     className="bg-black text-white shadow-lg"
@@ -27,6 +29,13 @@ const Header = ({ selectedCount, onCompare }) => (
         )}
       </div>
     </div>
+
+    <button
+      onClick={() => supabase.auth.signOut()}
+      className="ml-4 text-sm text-blue-200 hover:text-white"
+    >
+      Log out
+    </button>
   </header>
 );
 
