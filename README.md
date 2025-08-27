@@ -3,8 +3,6 @@
 A **React + Vite** SPA that visualizes upcoming **NASA Near-Earth Objects (NEOs)**.  
 Browse asteroid approaches, filter hazardous objects, and compare multiple NEOs side-by-side on an interactive chart.
 
->  **Note on Backend**  
-> This version does **not** use a BaaS solution. Although the initial spec mentioned Supabase, I was unable to integrate it in time, so all data is fetched directly from NASA’s public API and held in front-end state only.
 
 ---
 
@@ -22,7 +20,7 @@ Browse asteroid approaches, filter hazardous objects, and compare multiple NEOs 
   * Relative velocity (km/h)  
   * Mean diameter (km)  
 * **Responsive UI** – Tailwind CSS grid adapts from mobile to desktop.  
-* **No authentication required** – the app works immediately after cloning & adding your NASA key.
+
 
 ---
 
@@ -53,18 +51,6 @@ Create `.env.local` in the project root:
 ---
 
 ##  Project Structure (trimmed)
-
-
----
-
-##  Future Work
-
-* **Backend storage** – integrate Supabase (or another BaaS) to persist user selections, favourites, and comparison history.  
-* **Auth** – add password-less email / OAuth via Supabase Auth once backend is ready.  
-* **Unit tests** – React Testing Library + Jest for reducers, hooks, and key UI flows.  
-* **Accessibility** – ARIA roles & keyboard shortcuts for modal and filters.
-
----
 
 ## © License
 
