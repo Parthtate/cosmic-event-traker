@@ -14,7 +14,7 @@ const Header = ({ selectedCount, onCompare }) => (
 
         {/* Centered title section */}
         <div className="text-center">
-          <h1 className="text-2xl font-bold">🌌 Cosmic Event Tracker</h1>
+          <h1 className="text-2xl font-bold">Cosmic Event Tracker</h1>
           <p className="text-gray-300 text-sm">
             Track Near-Earth Objects & Cosmic Events
           </p>
