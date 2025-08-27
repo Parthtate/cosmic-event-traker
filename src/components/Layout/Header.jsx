@@ -1,4 +1,5 @@
 import { supabase } from "../../services/supabaseClient";
+import { Link } from "react-router-dom";
 
 const Header = ({ selectedCount, onCompare }) => (
   <header
@@ -18,16 +19,16 @@ const Header = ({ selectedCount, onCompare }) => (
       </div>
 
       {/* Right section with compare button or spacer */}
-      <div className="flex-1 flex justify-end">
-        {selectedCount > 0 && (
-          <button
-            onClick={onCompare}
-            className="bg-white text-black hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            Compare ({selectedCount})
-          </button>
-        )}
-      </div>
+      <Link
+        to="/compare"
+        className={`px-4 py-2 rounded-lg transition-colors ${
+          selectedCount > 1
+            ? "bg-blue-600 hover:bg-blue-700 text-white"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+        }`}
+      >
+        Compare ({selectedCount})
+      </Link>
     </div>
 
     <button
