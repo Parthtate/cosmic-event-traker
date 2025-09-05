@@ -1,4 +1,3 @@
-// src/components/UI/DateRangePicker.jsx
 /**
  * Lightweight date-range selector used by EventList.
  *

@@ -1,22 +1,5 @@
-// src/components/Charts/ComparisonChart.jsx
 import { ResponsiveBar } from "@nivo/bar";
-
-/**
- * ComparisonChart
- * ----------------
- * Re-usable bar chart used by CompareView.
- *
- * Expected data shape:
- * [
- *   {
- *     name:        "Apophis",
- *     distanceKm:  384400,
- *     velocityKph: 37500,
- *     diameterKm:  0.37
- *   },
- *   …
- * ]
- */
+ 
 const ComparisonChart = ({ data }) => (
   <div style={{ height: 500 }}>
     <ResponsiveBar

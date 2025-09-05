@@ -1,10 +1,10 @@
+import React, { useState, useEffect, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import EventList from "./components/NEO/EventList";
@@ -16,6 +16,15 @@ import AuthComponent from "./components/Auth/AuthComponent";
 export default function App() {
   const { session, loading: authLoading } = useAuth();
   const [selectedNEOs, setSelectedNEOs] = useState([]);
+
+  // Move filters state to parent component
+  const [filters, setFilters] = useState({
+    showHazardous: false,
+    sortBy: "approach_date",
+    sortOrder: "asc",
+    minDiameter: "", // Add this line
+  });
+
   const [currentDateRange, setCurrentDateRange] = useState(() => {
     const start = new Date();
     const end = new Date();
@@ -66,6 +75,8 @@ export default function App() {
                   selectedNEOs={selectedNEOs}
                   onSelectionChange={setSelectedNEOs}
                   onLoadMore={handleLoadMore}
+                  filters={filters}
+                  onFilterChange={setFilters}
                 />
               }
             />

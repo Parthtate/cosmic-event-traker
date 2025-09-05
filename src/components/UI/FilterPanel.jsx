@@ -8,14 +8,14 @@ const FilterPanel = ({ filters, onFilterChange }) => {
 
   return (
     <div
-      className="bg-white  border-gray-900 rounded-lg shadow-lg p-6 mb-6"
+      className="bg-white border-gray-900 rounded-lg shadow-lg p-6 mb-6"
       style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
     >
       <h3 className="text-xl font-bold text-black mb-6 border-b-2 border-gray-900 pb-2">
         Filter & Sort
       </h3>
-
       <div className="flex flex-wrap gap-6 items-center">
+        {/* Hazardous checkbox */}
         <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
           <input
             type="checkbox"
@@ -30,6 +30,7 @@ const FilterPanel = ({ filters, onFilterChange }) => {
           </span>
         </label>
 
+        {/* Sort by dropdown */}
         <div className="flex items-center space-x-3 bg-gray-50 px-4 py-2 rounded-lg border border-gray-300">
           <span className="text-sm font-medium text-black">Sort by:</span>
           <select
@@ -43,6 +44,7 @@ const FilterPanel = ({ filters, onFilterChange }) => {
           </select>
         </div>
 
+        {/* Sort order dropdown */}
         <div className="flex items-center space-x-3 bg-gray-50 px-4 py-2 rounded-lg border border-gray-300">
           <span className="text-sm font-medium text-black">Order:</span>
           <select
@@ -53,6 +55,26 @@ const FilterPanel = ({ filters, onFilterChange }) => {
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
+        </div>
+
+        {/* NEW: Diameter filter input */}
+        <div className="flex items-center space-x-3 bg-gray-50 px-4 py-2 rounded-lg border border-gray-300">
+          <label
+            htmlFor="minDiameter"
+            className="text-sm font-medium text-black"
+          >
+            Min Diameter (km):
+          </label>
+          <input
+            id="minDiameter"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="e.g. 0.5"
+            value={filters.minDiameter || ""}
+            onChange={(e) => handleFilterChange("minDiameter", e.target.value)}
+            className="border-2 border-gray-900 rounded-md px-3 py-2 text-sm font-medium bg-white text-black focus:outline-none focus:ring-2 focus:ring-gray-500 hover:bg-gray-50 transition-colors w-28 text-right"
+          />
         </div>
       </div>
     </div>

@@ -1,6 +1,11 @@
 import { useMemo } from "react";
 
-const EventCard = ({ neo, onSelect, isSelected, onViewDetails }) => {
+const EventCard = ({
+  neo, // The asteroid data object
+  onSelect, // Callback when checkbox is clicked
+  isSelected, // Boolean - is this card selected for comparison?
+  onViewDetails, // Callback when card is clicked (opens modal)
+}) => {
   const diameterAvg = useMemo(() => {
     const min = neo.estimated_diameter.kilometers.estimated_diameter_min;
     const max = neo.estimated_diameter.kilometers.estimated_diameter_max;
